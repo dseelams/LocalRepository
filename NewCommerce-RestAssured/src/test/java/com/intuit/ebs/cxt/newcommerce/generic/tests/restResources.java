@@ -210,7 +210,7 @@ public class restResources {
       
       System.out.println("json object is :" + xmlJSONObj.get("transactionId"));
       			  
-      ps1.then().statusCode(400);	
+      ps1.then().statusCode(200);	
 	  
 	 // System.out.println("Post Response Content type is :" + "\n" + ps1.getContentType());
 	  
