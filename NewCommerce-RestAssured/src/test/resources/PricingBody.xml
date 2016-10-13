@@ -1,0 +1,10 @@
+<pri:PricingRequest type="LOOKUP" xsi:schemaLocation="http://www.intuit.com/wcg/estore/tto/pricing EStoreTTOPricing.xsd" xmlns:pri="http://www.intuit.com/wcg/estore/tto/pricing" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<pri:transactionId>123</pri:transactionId>
+            <pri:priorityCodeList>
+             <pri:priorityCode timestamp="2001-12-17T09:30:47Z">3468337910</pri:priorityCode>
+             <pri:priorityCode timestamp="2001-12-17T09:30:47Z">3468337910</pri:priorityCode>
+            </pri:priorityCodeList>            
+           <pri:productFamilyName>DELUXE</pri:productFamilyName>
+<pri:bundleList>
+</pri:bundleList>
+</pri:PricingRequest>

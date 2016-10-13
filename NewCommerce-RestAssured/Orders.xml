@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite" parallel="false">
+  <test name="Test">
+    <classes>
+      <class name="com.intuit.ebs.cxt.newcommerce.order.tests.carts"/>
+      <class name="com.intuit.ebs.cxt.newcommerce.order.tests.Enrollments"/>
+      <class name="com.intuit.ebs.cxt.newcommerce.order.tests.Orders"/>
+      <class name="com.intuit.ebs.cxt.newcommerce.order.tests.Quotes"/>
+      <class name="com.intuit.ebs.cxt.newcommerce.order.tests.GuestShoppers"/>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->

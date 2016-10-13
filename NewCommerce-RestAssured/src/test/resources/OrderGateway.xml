@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ADD_SALESORDER_006>
+	<CNTROLAREA>
+		<BSR>
+			<VERB>ADD</VERB>
+			<NOUN>SALESORDER</NOUN>
+			<REVISION>008</REVISION>
+		</BSR>
+		<PERFORMSERVICE name="CCAUTH" onfailure="STOP" />
+	</CNTROLAREA>
+	<DATAAREA>
+		<ADD_SALESORDER>
+			<SOHEADER>
+				<NOTES index="Comment" />
+				<OPERAMT qualifier="EXTENDED">
+					<VALUE>0</VALUE>
+					<NUMOFDEC>2</NUMOFDEC>
+					<CURRENCY>USD</CURRENCY>
+				</OPERAMT>
+				<SALESORDID>DURGA_10052016_02</SALESORDID>
+				<OPRAMTAUTH>3957755593</OPRAMTAUTH>
+				<TAXYEAR />
+				<BACKORDIND />
+				<PARTIALSHP />
+				<PAYMENT>
+					<NAME>Paul A Lee</NAME>
+					<PAYMETHOD>CreditCard</PAYMETHOD>
+					<ACCOUNTNUM>378282246310005</ACCOUNTNUM>
+					<ACCOUNTTYPE>American Express</ACCOUNTTYPE>
+					<CHECKNUM />
+					<ABANUM />
+					<FINANCIALNAME />
+					<DIVISIONNUM>324012</DIVISIONNUM>
+					<AUTHCD />
+					<CVV2>4515</CVV2>
+					<CVV2RESP />
+					<AVSRESP />
+					<DATETIME qualifier="EXPIRATION">
+						<YEAR>2016</YEAR>
+						<MONTH>12</MONTH>
+					</DATETIME>
+					<DATETIME qualifier="APPROVAL" />
+					<OPERAMT qualifier="EXTENDED">
+						<VALUE>26000</VALUE>
+						<NUMOFDEC>2</NUMOFDEC>
+						<CURRENCY>USD</CURRENCY>
+					</OPERAMT>
+				</PAYMENT>
+				<DATETIME qualifier="ORDER">
+					<YEAR>2009</YEAR>
+					<MONTH>04</MONTH>
+					<DAY>23</DAY>
+					<HOUR>13</HOUR>
+					<MINUTE>12</MINUTE>
+					<SECOND>14</SECOND>
+					<SUBSECOND>0000</SUBSECOND>
+					<TIMEZONE>-0700</TIMEZONE>
+				</DATETIME>
+				<USERAREA.SOHEADER>
+					<SALESORDIDX>TTZ16891465248</SALESORDIDX>
+					<TRANSACTIONID />
+					<BILLINGSYSTEM>TTZ</BILLINGSYSTEM>
+					<RUSHITEM />
+					<AMOUNT qualifier="TAX" />
+					<AMOUNT qualifier="FREIGHT">
+						<VALUE>0</VALUE>
+						<NUMOFDEC>2</NUMOFDEC>
+						<CURRENCY>USD</CURRENCY>
+					</AMOUNT>
+					<EFILE>
+						<SSN />
+						<POSTALCODE />
+						<NAMECNTROL />
+						<DCN />
+						<DATETIME qualifier="ACCEPTANCE" />
+					</EFILE>
+				</USERAREA.SOHEADER>
+				<PARTNER>
+					<NAME index="OrgName" />
+					<NAME index="FirstName" />
+					<NAME index="MI" />
+					<NAME index="LastName" />
+					<NAME index="Prefix" />
+					<NAME index="Suffix" />
+					<PARTNRID />
+					<PARTNRTYPE>SoldTo</PARTNRTYPE>
+					<PARTNRCLASS />
+					<SHIPNOTES index="CARRIER" />
+					<SHIPNOTES index="METHOD" />
+					<USERAREA.PARTNER>
+						<PARTNERNUM>0</PARTNERNUM>
+						<PARTYID />
+						<TAXEXEMPTNUM />
+						<CUSTOMERCATEGORYCODE />
+						<AMOUNT qualifier="TAXRATE" />
+						<AMOUNT qualifier="TAX" />
+						<AMOUNT qualifier="FREIGHT" />
+					</USERAREA.PARTNER>
+					<ADDRESS>
+						<ADDRLINE index="1">1510 Rock Run Dr #3d</ADDRLINE>
+						<ADDRLINE index="2" />
+						<ADDRLINE index="3" />
+						<CITY>Crest Hill</CITY>
+						<COUNTRY>US</COUNTRY>
+						<FAX index="1" />
+						<POSTALCODE>60435</POSTALCODE>
+						<STATEPROVN>IL</STATEPROVN>
+						<TELEPHONE index="DayPhone" />
+						<TELEPHONE index="DayExt" />
+						<TELEPHONE index="EvePhone" />
+					</ADDRESS>
+					<CONTACT>
+						<EMAIL />
+					</CONTACT>
+				</PARTNER>
+				<SALESINFO>
+					<SALESPERSN />
+					<SALESORG index="Source">TTZ</SALESORG>
+				</SALESINFO>
+			</SOHEADER>
+			<SOLINE>
+				<QUANTITY qualifier="ORDERED">
+					<VALUE>0</VALUE>
+					<NUMOFDEC>0</NUMOFDEC>
+					<UOM>EA</UOM>
+				</QUANTITY>
+				<QUANTITY qualifier="SHIPQTY">
+					<VALUE>0</VALUE>
+					<NUMOFDEC>0</NUMOFDEC>
+					<UOM>EA</UOM>
+				</QUANTITY>
+				<OPERAMT qualifier="UNIT">
+					<VALUE>26000</VALUE>
+					<NUMOFDEC>2</NUMOFDEC>
+					<CURRENCY>USD</CURRENCY>
+				</OPERAMT>
+				<SOLINENUM>0</SOLINENUM>
+				<NOTES index="Comment" />
+				<DESCRIPTN />
+				<ITEM />
+				<ITEMX />
+				<USERAREA.SOLINE>
+					<PARTNERNUM>0</PARTNERNUM>
+					<OPRAMTAUTH />
+					<ACTIVATIONREQUIRED />
+					<ACTIVATIONTYPE />
+					<TAXABLE />
+					<LICENSECODE />
+					<SHIPPABLE />
+					<MEDIAID />
+				</USERAREA.SOLINE>
+			</SOLINE>
+		</ADD_SALESORDER>
+	</DATAAREA>
+</ADD_SALESORDER_006>
