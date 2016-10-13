@@ -208,7 +208,7 @@ public class restResources {
       String jsonPrettyPrintString = xmlJSONObj.toString(PRETTY_PRINT_INDENT_FACTOR);
       System.out.println(jsonPrettyPrintString);
       
-      System.out.println("json object is :" + xmlJSONObj.get("transactionId"));
+     // System.out.println("json object is :" + xmlJSONObj.get("transactionId"));
       			  
       ps1.then().statusCode(200);	
 	  
