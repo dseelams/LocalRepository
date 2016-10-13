@@ -7,6 +7,7 @@
       <class name="com.intuit.ebs.cxt.newcommerce.order.tests.Orders"/>
       <class name="com.intuit.ebs.cxt.newcommerce.order.tests.Quotes"/>
       <class name="com.intuit.ebs.cxt.newcommerce.order.tests.GuestShoppers"/>
+      <class name="com.intuit.ebs.cxt.newcommerce.generic.tests.restResources"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
