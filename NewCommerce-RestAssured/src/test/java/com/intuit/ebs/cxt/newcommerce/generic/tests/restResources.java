@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.http.entity.ContentType;
 import org.json.JSONObject;
 import org.json.XML;
 import org.testng.annotations.BeforeClass;
@@ -24,6 +25,7 @@ import com.jayway.restassured.specification.RequestSpecification;
 
 public class restResources {
   private Map<String, String> headers = new HashMap<String, String>();
+  private Map<String, String> queryParams = new HashMap<String, String>();
   
   private static final Properties Configurations;
   
@@ -172,9 +174,8 @@ public class restResources {
 	  
   }
   
-  
-  
-  @Test(enabled=true)
+    
+  @Test(enabled=false)
   public void postResourceWithAuthTest(){
 	  
 	  int PRETTY_PRINT_INDENT_FACTOR = 4;
@@ -218,6 +219,114 @@ public class restResources {
  	  
  } 
   
+  @Test(enabled=false)
+  public void getSyntheticPersonData(){
+	  
+	  System.out.println("Starting get Synthetic Person data test case");
+	  
+	  
+		 RestAssured ra = new RestAssured();
+		  
+		 Response rs = ra.given().baseUri(Configurations.getProperty("synthetic.party.person.data.url")).queryParams("key", "new").log().all().get();
+		 
+		 System.out.println("Synthetic party response is :"  + rs.getBody().prettyPrint());	 
+		 
+		 System.out.println("Synthetic party response content type is :" + rs.getContentType());
+		 
+		 //System.out.println(rs.getHeaders().asList().get(1));
+		 
+		// System.out.println("Response body is :" + rs.getBody().asString());
+		 
+     System.out.println("completed get Synthetic Person data test case");
+	  
+  }
+  
+  @Test(enabled=true)
+  public void buildGetRequest(){
+	  
+	 //Initiate/use static instance of RestAssured (RA)
+	  
+	   RequestSpecification reqSpec = given();
+	  
+	  
+	  //Setup the headers (custom and standard-headers one necessary for Authentication too)
+	   
+	   reqSpec = SetHeadersforGetRequest(reqSpec, "resource.test.url");   
+	  
+	  //Add the query parameters
+	   
+	   reqSpec = setQueryParametersforGetRquest(reqSpec, "resource.test.url");
+	   
+	   //log the request specification
+	  
+	    reqSpec.log().all();
+	  
+	  // Submit GET request
+	   
+	   System.out.println("Response for ReqSpec is :" + reqSpec.get().asString());
+	  
+	  
+	  // Parse the response
+	  
+	  
+	  // Perform Validations  
+	  
+	  
+	  
+		// RestAssured ra = new RestAssured();
+		  
+		// Response rs = ra.given().baseUri(Configurations.getProperty("synthetic.party.person.data.url")).queryParams("key", "new").log().all().get();
+		 
+		// System.out.println("Synthetic party response is :"  + rs.getBody().prettyPrint());	 
+		 
+		// System.out.println("Synthetic party response content type is :" + rs.getContentType());
+		 
+		 //System.out.println(rs.getHeaders().asList().get(1));
+		 
+		// System.out.println("Response body is :" + rs.getBody().asString());
+		 
+     System.out.println("completed get Synthetic Person data test case");
+	  
+  }
+
+private RequestSpecification setQueryParametersforGetRquest(RequestSpecification reqSpec, String queryString) {
+	// TODO Auto-generated method stub
+	
+	
+	queryString = queryString + ".queryParameters";
+	
+	String queryStrings = Configurations.getProperty(queryString);
+	
+	String[] queryKeypares = queryStrings.split(";");	
+	
+	
+	for(int i=0; i <= queryKeypares.length; i++) {
+		String[] singleQuery = queryKeypares[i].split(",");
+     	queryParams.put(singleQuery[0], singleQuery[1]);		
+	}
+	
+    return reqSpec.queryParameters(queryParams);   	
+}
+
+private RequestSpecification SetHeadersforGetRequest(RequestSpecification reqSpec, String headStrings) {
+	// TODO Auto-generated method stub
+	
+	headStrings = headStrings + ".headers";
+	
+	String headerString = Configurations.getProperty(headStrings);
+	
+	String[] HeadersKeypares = headerString.split(";");
+	
+	
+	
+	for(int i=0; i <= HeadersKeypares.length; i++) {
+		String[] singleHeader = HeadersKeypares[i].split(",");
+     	headers.put(singleHeader[0], singleHeader[1]);		
+	}
+	
+    return reqSpec.headers(headers);   		
+	
+}
 
 
   
