@@ -4,10 +4,8 @@ import static com.jayway.restassured.RestAssured.given;
 
 import java.io.InputStream;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
 
-import org.apache.http.entity.ContentType;
 import org.json.JSONObject;
 import org.json.XML;
 import org.testng.annotations.BeforeClass;
@@ -18,16 +16,14 @@ import com.intuit.ebs.cxt.newcommerce.utils.CommonUtililties;
 import com.intuit.ebs.cxt.newcommerce.utils.Configurations;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.config.EncoderConfig;
+import com.jayway.restassured.parsing.Parser;
 import com.jayway.restassured.response.Response;
-import com.jayway.restassured.response.ValidatableResponse;
 import com.jayway.restassured.specification.RequestSpecification;
 
 
 public class restResources {
-  private Map<String, String> headers = new HashMap<String, String>();
-  private Map<String, String> queryParams = new HashMap<String, String>();
-  
-  private static final Properties Configurations;
+  private RestResourcesUtils data = new RestResourcesUtils(new HashMap<String, String>(), new HashMap<String, String>());
+  static final Properties Configurations;
   
  
 	static{
@@ -56,6 +52,9 @@ public class restResources {
   }
   @BeforeClass
   public void beforeClass() {
+	  
+	  RestAssured.registerParser("text/plain", Parser.TEXT);
+	  
   }
 
   @Test(enabled=false)
@@ -188,8 +187,8 @@ public class restResources {
 	  
 	//  System.out.println("Body Read is :" + postBody);
 	  
-	 headers.put("Authorization", Configurations.getProperty("header.pricing.Authentication"));
-	 headers.put("Cache-Control", Configurations.getProperty("header.pricing.cache"));	  
+	 data.headers.put("Authorization", Configurations.getProperty("header.pricing.Authentication"));
+	 data.headers.put("Cache-Control", Configurations.getProperty("header.pricing.cache"));	  
 	  
 	 // System.out.println(headers.toString());	  
 	  
@@ -201,7 +200,7 @@ public class restResources {
 	 // System.out.println("Request log specification is " + "\n" + ls1.all());
 	  
 	 
-	  Response ps1 = rs1.given().headers(headers).body(postBody).log().all().post(); //rs1.given().post();
+	  Response ps1 = rs1.given().headers(data.headers).body(postBody).log().all().post(); //rs1.given().post();
 	  
 	  System.out.println("Post Response string is :" + "\n" + ps1.asString());
 	  
@@ -241,92 +240,60 @@ public class restResources {
 	  
   }
   
-  @Test(enabled=true)
-  public void buildGetRequest(){
-	  
-	 //Initiate/use static instance of RestAssured (RA)
-	  
-	   RequestSpecification reqSpec = given();
-	  
-	  
-	  //Setup the headers (custom and standard-headers one necessary for Authentication too)
-	   
-	   reqSpec = SetHeadersforGetRequest(reqSpec, "resource.test.url");   
-	  
-	  //Add the query parameters
-	   
-	   reqSpec = setQueryParametersforGetRquest(reqSpec, "resource.test.url");
-	   
-	   //log the request specification
-	  
-	    reqSpec.log().all();
-	  
-	  // Submit GET request
-	   
-	   System.out.println("Response for ReqSpec is :" + reqSpec.get().asString());
-	  
-	  
-	  // Parse the response
-	  
-	  
-	  // Perform Validations  
-	  
-	  
-	  
-		// RestAssured ra = new RestAssured();
-		  
-		// Response rs = ra.given().baseUri(Configurations.getProperty("synthetic.party.person.data.url")).queryParams("key", "new").log().all().get();
-		 
-		// System.out.println("Synthetic party response is :"  + rs.getBody().prettyPrint());	 
-		 
-		// System.out.println("Synthetic party response content type is :" + rs.getContentType());
-		 
-		 //System.out.println(rs.getHeaders().asList().get(1));
-		 
-		// System.out.println("Response body is :" + rs.getBody().asString());
-		 
-     System.out.println("completed get Synthetic Person data test case");
-	  
-  }
+	@Test(enabled = true,  dataProvider = "dptest")
+	public void buildGetRequest(String testCaseId) {
+		
+	   // Initiate/use static instance of RestAssured (RA)			
 
-private RequestSpecification setQueryParametersforGetRquest(RequestSpecification reqSpec, String queryString) {
-	// TODO Auto-generated method stub
-	
-	
-	queryString = queryString + ".queryParameters";
-	
-	String queryStrings = Configurations.getProperty(queryString);
-	
-	String[] queryKeypares = queryStrings.split(";");	
-	
-	
-	for(int i=0; i <= queryKeypares.length; i++) {
-		String[] singleQuery = queryKeypares[i].split(",");
-     	queryParams.put(singleQuery[0], singleQuery[1]);		
+		RequestSpecification reqSpec = given();
+
+		// set the baseURI
+
+		reqSpec = reqSpec.baseUri(Configurations.getProperty(testCaseId));
+
+		// Setup the headers (custom and standard-headers one necessary for
+		// Authentication too)
+
+		reqSpec = data.SetHeadersforGetRequest(this, reqSpec, testCaseId);
+
+		// Add the query parameters
+
+		reqSpec = data.setQueryParametersforGetRquest(this, reqSpec, testCaseId);
+
+		// log the request specification
+
+		reqSpec.log().all();
+
+		// Submit GET request
+
+		Response res = reqSpec.get();
+		
+		System.out.println("Content type of response is: " + res.getContentType());
+		System.out.println("Content type of response is: " + res.body().asString());
+		
+/*		try{
+		  System.out.println("Response for ReqSpec is :" + res.prettyPrint());
+		}finally{
+			System.out.println("Response for ReqSpec is could not be parsed as string");
+		} */
+		
+
+		// Parse the response and perform validations
+
+		data.validateTheResponse(res, testCaseId);
+
 	}
 	
-    return reqSpec.queryParameters(queryParams);   	
-}
-
-private RequestSpecification SetHeadersforGetRequest(RequestSpecification reqSpec, String headStrings) {
-	// TODO Auto-generated method stub
-	
-	headStrings = headStrings + ".headers";
-	
-	String headerString = Configurations.getProperty(headStrings);
-	
-	String[] HeadersKeypares = headerString.split(";");
 	
 	
-	
-	for(int i=0; i <= HeadersKeypares.length; i++) {
-		String[] singleHeader = HeadersKeypares[i].split(",");
-     	headers.put(singleHeader[0], singleHeader[1]);		
-	}
-	
-    return reqSpec.headers(headers);   		
-	
-}
+	  @DataProvider
+	  public Object[][] dptest() {
+	    return new Object[][] {
+/*	      new Object[] { "resource.test.url" },
+	      new Object[] { "resource.test.url1" },*/
+	      new Object[] { "resource.test.url2" },
+	    };
+	  }
 
 
   
