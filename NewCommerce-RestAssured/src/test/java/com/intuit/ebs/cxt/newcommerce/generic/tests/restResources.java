@@ -240,7 +240,7 @@ public class restResources {
 	  
   }
   
-	@Test(enabled = true,  dataProvider = "dptest")
+	@Test(enabled = false,  dataProvider = "dptest")
 	public void buildGetRequest(String testCaseId) {
 		
 	   // Initiate/use static instance of RestAssured (RA)			
@@ -289,11 +289,79 @@ public class restResources {
 	  @DataProvider
 	  public Object[][] dptest() {
 	    return new Object[][] {
-/*	      new Object[] { "resource.test.url" },
-	      new Object[] { "resource.test.url1" },*/
-	      new Object[] { "resource.test.url2" },
+          new Object[] { "resource.test.url" },
+	      new Object[] { "resource.test.url1" },
+	      new Object[] { "resource.test.url2" }, 
 	    };
 	  }
+	  
+	  @Test(enabled = true,  dataProvider = "dpPostTest")
+	  public void buildPostRequest(String testCaseId) {
+			
+			   // Initiate/use static instance of RestAssured (RA)			
+
+				RequestSpecification reqSpec = given();
+
+				// set the baseURI
+				
+				reqSpec = given().config(RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToStreamingContentTypeIfUndefined(false)));
+
+				reqSpec = reqSpec.baseUri(Configurations.getProperty(testCaseId));
+
+				// Setup the headers (custom and standard-headers one necessary for
+				// Authentication too)
+
+				reqSpec = data.SetHeadersforGetRequest(this, reqSpec, testCaseId);
+
+				// Add the query parameters
+
+				//reqSpec = data.setQueryParametersforGetRquest(this, reqSpec, testCaseId);
+				
+				// read and set the post payload
+				
+				//reqSpec = reqSpec.body(CommonUtililties.getPostPayload("PricingBody"));
+				
+				reqSpec = data.setPayloadforPost(this, reqSpec, testCaseId);
+				
+				
+			  //	String postBody = CommonUtililties.getPostPayload("PricingBody"); 
+
+				// log the request specification
+
+				reqSpec.log().all();
+				
+				
+
+				// Submit GET request
+
+				Response res = reqSpec.post();
+				
+				System.out.println("Content type of response is: " + res.getContentType());
+				System.out.println("Response body is: " + res.body().asString());
+				
+				
+		/*		try{
+				  System.out.println("Response for ReqSpec is :" + res.prettyPrint());
+				}finally{
+					System.out.println("Response for ReqSpec is could not be parsed as string");
+				} */
+				
+
+				// Parse the response and perform validations
+
+				data.validateTheResponse(res, testCaseId);
+
+			}
+	  
+	  
+	  @DataProvider
+	  public Object[][] dpPostTest() {
+	    return new Object[][] {
+          new Object[] { "resource.test.url3" },
+	      new Object[] { "resource.test.url4" },
+	    };
+	  }
+	  
 
 
   
